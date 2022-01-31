@@ -6,7 +6,7 @@ if [ "$version" == '' ] || [ "$sha" == '' ]; then
   exit
 fi
 #fetch the current version
-current_version=$(grep -w "version " Formula/twilio.rb | awk '{print $2}' | tr -d \")
+current_version=$(grep -w "version " Formula/$formula.rb | awk '{print $2}' | tr -d \")
 echo "Current version $current_version"
 if [ "$version" != "$current_version" ]; then
   cp Formula/$formula.rb Formula/twilio@$current_version.rb
