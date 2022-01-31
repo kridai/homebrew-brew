@@ -9,7 +9,7 @@ fi
 current_version=$(grep -w "version " Formula/$formula.rb | awk '{print $2}' | tr -d \")
 echo "Current version $current_version"
 if [ "$version" != "$current_version" ]; then
-  cp Formula/$formula.rb Formula/twilio@$current_version.rb
+  cp Formula/$formula.rb Formula/$formula@$current_version.rb
 fi
 formula_path="Formula/$formula.rb"
 sed -E -i.bak "s/twilio-v$version_pattern/twilio-v$version/g" "$formula_path"
