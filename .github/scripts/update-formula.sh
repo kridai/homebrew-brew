@@ -10,14 +10,16 @@ current_version=$(grep -w "version " Formula/$formula.rb | awk '{print $2}' | tr
 echo "Current version $current_version"
 if [ "$version" != "$current_version" ]; then
   cp Formula/$formula.rb Formula/$formula@$current_version.rb
+  class_name=$(echo $formula | sed -e "s/\b./\u&/g")AT$(echo $current_version | tr -dc '[:alnum:]\n\r' | sed 's/[a-z]/\U&/g')
+  sed -i.bak "s/^class [^ ]*/class $class_name/" Formula/$formula@$current_version.rb
 fi
 formula_path="Formula/$formula.rb"
 sed -E -i.bak "s/twilio-v$version_pattern/twilio-v$version/g" "$formula_path"
 sed -i.bak "s/version .*/version \"$version\"/" "$formula_path"
 sed -i.bak "s/sha256 .*/sha256 \"$sha\"/" "$formula_path"
 echo "Git configurations"
-git config --global user.email "kridaigoswami@gmail.com"
-git config --global user.name "kridai"
+git config --global user.email "team_interfaces+github@twilio.com"
+git config --global user.name "twilio-dx"
 branch=$(git branch --show-current)
 echo "Current branch: $branch"
 git add -A
