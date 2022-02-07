@@ -10,7 +10,7 @@ current_version=$(grep -w "version " Formula/$formula.rb | awk '{print $2}' | tr
 echo "Current version $current_version"
 if [ "$version" != "$current_version" ]; then
   cp Formula/$formula.rb Formula/$formula@$current_version.rb
-  class_name=$(echo $formula | sed -e "s/\b./\u&/g")AT$(echo $current_version | tr -dc '[:alnum:]\n\r' | sed 's/[a-z]/\U&/g')
+  class_name=$(echo $formula | sed -e "s/\b./\u&/g")AT$(echo $current_version | tr -dc '[:alnum:]\n\r' | sed 's/[[:alpha:]]/\U&/')
   sed -i.bak "s/^class [^ ]*/class $class_name/" Formula/$formula@$current_version.rb
 fi
 formula_path="Formula/$formula.rb"
